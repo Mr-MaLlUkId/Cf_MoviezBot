@@ -16,8 +16,7 @@ from utils import temp
 from typing import Union, Optional, AsyncGenerator
 from pyrogram import types
 from plugins.webcode import bot_run
-from aiohttp import web
-from plugins import web_server
+from aiohttp import web as webserver
 from datetime import date, datetime
 import datetime
 import pytz
