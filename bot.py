@@ -50,7 +50,7 @@ class Bot(Client):
         temp.U_NAME = me.username
         temp.B_NAME = me.first_name
         self.username = '@' + me.username
-        app = web.AppRunner(await web_server())
+        app = webserver.AppRunner(await bot_run())
         tz = pytz.timezone('Asia/Kolkata')
         today = date.today()
         now = datetime.datetime.now(tz)
