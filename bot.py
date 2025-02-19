@@ -11,12 +11,20 @@ from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from database.ia_filterdb import Media
 from database.users_chats_db import db
-from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR
+from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR, LOG_CHANNEL 
 from utils import temp
 from typing import Union, Optional, AsyncGenerator
 from pyrogram import types
-from plugins import web_server
 from aiohttp import web
+from plugins import web_server
+from datetime import date, datetime
+import datetime
+import pytz
+import time
+import os 
+import sys
+
+PORT = "8080"
 
 class Bot(Client):
 
@@ -42,6 +50,15 @@ class Bot(Client):
         temp.U_NAME = me.username
         temp.B_NAME = me.first_name
         self.username = '@' + me.username
+        app = web.AppRunner(await web_server())
+        tz = pytz.timezone('Asia/Kolkata')
+        today = date.today()
+        now = datetime.datetime.now(tz)
+        timee = now.strftime("%H:%M:%S %p")
+        await app.setup()
+        bind_address = "0.0.0.0"
+        await web.TCPSite(app, bind_address, PORT).start()
+        await self.send_message(chat_id=LOG_CHANNEL, text=f"<b>{me.mention} ʀᴇsᴛᴀʀᴛᴇᴅ 🤖\n\n📆 ᴅᴀᴛᴇ - <code>{today}</code>\n🕙 ᴛɪᴍᴇ - <code>{timee}</code>\n🌍 ᴛɪᴍᴇ ᴢᴏɴᴇ - <code>Asia/Kolkata</code></b>")
         logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
         logging.info(LOG_STR)
 
