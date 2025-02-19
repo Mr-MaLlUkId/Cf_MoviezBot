@@ -15,6 +15,8 @@ from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR
 from utils import temp
 from typing import Union, Optional, AsyncGenerator
 from pyrogram import types
+from plugins import web_server
+from aiohttp import web
 
 class Bot(Client):
 
